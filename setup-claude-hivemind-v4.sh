@@ -219,7 +219,9 @@ def generate_statute(conn):
     output = []
     
     cursor.execute('''
-        SELECT agent_type, substr(task_description, 1, 60), status 
+        SELECT agent_type,
+               substr(COALESCE(task_description, 'task'), 1, 60),
+               status
         FROM agent_tasks ORDER BY completed_at DESC NULLS LAST, started_at DESC LIMIT 5
     ''')
     tasks = cursor.fetchall()
