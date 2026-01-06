@@ -1277,7 +1277,7 @@ chmod +x "$SCRIPTS_DIR/spawn-agent.sh"
 cat > "$SCRIPTS_DIR/context-watcher.sh" << 'WATCHER'
 #!/bin/bash
 TRANSCRIPT_DIR="$HOME/.claude/projects"
-MAX_CONTEXT=200000
+MAX_CONTEXT=200000  # Maximum Claude context window size in tokens for usage tracking
 WARN_THRESHOLD=75
 CHECK_INTERVAL=30
 MEMORY_SCRIPT="$HOME/.claude/scripts/memory-db.py"
