@@ -320,11 +320,26 @@ cat > "$HOOKS_DIR/crlf-fix.sh" << 'CRLF_HOOK'
 input=$(cat)
 file_path=$(echo "$input" | python3 -c "import sys,json; print(json.load(sys.stdin).get('tool_input',{}).get('file_path',''))" 2>/dev/null)
 
-if [ -n "$file_path" ] && [ -f "$file_path" ]; then
+# Validate and normalize the file path before using it
+if [ -z "$file_path" ]; then
+    exit 0
+fi
+
+# Resolve to an absolute, normalized path; if this fails, do nothing
+normalized_path=$(realpath -m -- "$file_path" 2>/dev/null) || exit 0
+
+# Restrict operations to files within the current working directory (workspace)
+WORKSPACE_ROOT=$(pwd)
+case "$normalized_path" in
+    "$WORKSPACE_ROOT"/*) ;;
+    *) exit 0 ;;
+esac
+
+if [ -f "$normalized_path" ]; then
     # Check if file has CRLF endings
-    if file "$file_path" 2>/dev/null | grep -q "CRLF"; then
-        sed -i 's/\r$//' "$file_path" 2>/dev/null
-        echo "Fixed CRLF line endings in $file_path" >&2
+    if file "$normalized_path" 2>/dev/null | grep -q "CRLF"; then
+        sed -i 's/\r$//' "$normalized_path" 2>/dev/null
+        echo "Fixed CRLF line endings in $normalized_path" >&2
     fi
 fi
 exit 0
