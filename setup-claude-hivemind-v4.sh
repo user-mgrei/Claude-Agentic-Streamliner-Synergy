@@ -153,6 +153,19 @@ from datetime import datetime
 from pathlib import Path
 
 def get_db_path():
+    """
+    Resolve the SQLite database path for the Hivemind memory manager.
+
+    Prefers a project-local database in `<project_dir>/.claude/hivemind.db` if a
+    `.claude` directory exists in the project root, otherwise falls back to the
+    global database at `~/.claude/hivemind.db`.
+
+    The project root is taken from the `CLAUDE_PROJECT_DIR` environment variable
+    if set, or defaults to the current working directory.
+
+    Returns:
+        pathlib.Path: The resolved path to the SQLite database file.
+    """
     project_dir = os.environ.get('CLAUDE_PROJECT_DIR', os.getcwd())
     project_db = Path(project_dir) / '.claude' / 'hivemind.db'
     global_db = Path.home() / '.claude' / 'hivemind.db'
