@@ -141,7 +141,21 @@ def ensure_db():
     return conn
 
 def generate_statute(conn):
-    """Generate compact statute for context injection"""
+    """
+    Generate a compact statute summary for context injection.
+
+    This queries recent agent tasks and project state from the hivemind
+    SQLite database and formats them into a concise, Markdown-style
+    text block suitable for inclusion in Claude's context window.
+
+    Args:
+        conn: An open sqlite3.Connection to the hivemind database.
+
+    Returns:
+        A newline-separated Markdown string summarizing recent agent
+        tasks and project state, or an empty string if no data is
+        available.
+    """
     cursor = conn.cursor()
     output = []
     
