@@ -80,8 +80,14 @@ check_cmd jq || MISSING_DEPS+=("jq")
 
 # Optional deps
 echo -e "  ${CYAN}Optional:${NC}"
-check_cmd go || echo -e "    ${YELLOW}→${NC} Install Go for hyprls: sudo pacman -S go"
-check_cmd uvx || check_cmd pipx || echo -e "    ${YELLOW}→${NC} Install uv or pipx for MCP servers"
+if ! check_cmd go; then
+    echo -e "    ${YELLOW}→${NC} Install Go for hyprls: sudo pacman -S go"
+fi
+if ! check_cmd uvx; then
+    if ! check_cmd pipx; then
+        echo -e "    ${YELLOW}→${NC} Install uv or pipx for MCP servers"
+    fi
+fi
 
 if [ ${#MISSING_DEPS[@]} -gt 0 ]; then
     echo -e "\n${RED}Missing required dependencies: ${MISSING_DEPS[*]}${NC}"
