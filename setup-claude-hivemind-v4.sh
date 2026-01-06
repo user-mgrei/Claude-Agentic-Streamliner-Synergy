@@ -236,6 +236,21 @@ def ensure_db():
     return conn
 
 def generate_statute(conn):
+    """
+    Generate a markdown-formatted project statute summary from the database.
+
+    This function queries the provided SQLite connection for recent agent tasks,
+    project state entries, and unexported learnings, and composes a human-readable
+    summary with section headers.
+
+    Args:
+        conn: An open sqlite3.Connection (or compatible) object connected to the
+            hivemind database.
+
+    Returns:
+        A string containing the formatted statute summary in markdown, or an empty
+        string if there is no relevant data to report.
+    """
     cursor = conn.cursor()
     output = []
     
