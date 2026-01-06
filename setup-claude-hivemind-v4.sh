@@ -101,14 +101,15 @@ fi
 #===============================================================================
 echo -e "${YELLOW}[3/12]${NC} Configuring Qdrant MCP Server..."
 
-cat > "$CLAUDE_DIR/.mcp.json" << 'MCP_CONFIG'
+QDRANT_LOCAL_PATH="$HOME/.claude/qdrant"
+cat > "$CLAUDE_DIR/.mcp.json" << MCP_CONFIG
 {
   "mcpServers": {
     "qdrant-memory": {
       "command": "uvx",
       "args": ["mcp-server-qdrant"],
       "env": {
-        "QDRANT_LOCAL_PATH": "~/.claude/qdrant",
+        "QDRANT_LOCAL_PATH": "$QDRANT_LOCAL_PATH",
         "COLLECTION_NAME": "hivemind_memory",
         "EMBEDDING_PROVIDER": "fastembed",
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2",
