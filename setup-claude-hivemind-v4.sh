@@ -127,8 +127,10 @@ if ! command -v uvx &>/dev/null; then
         sed -i 's/"command": "uvx"/"command": "pipx"/' "$CLAUDE_DIR/.mcp.json"
         sed -i 's/"args": \["mcp-server-qdrant"\]/"args": ["run", "mcp-server-qdrant"]/' "$CLAUDE_DIR/.mcp.json"
     else
-        echo -e "  ${YELLOW}⚠${NC} Neither uvx nor pipx found - MCP server may not work"
-        echo -e "    Install with: ${CYAN}pip install uv${NC} or ${CYAN}pip install pipx${NC}"
+        echo -e "  ${RED}✖${NC} Neither uvx nor pipx found - cannot configure Qdrant MCP server"
+        echo -e "    Install with: ${CYAN}pip install uv${NC} or ${CYAN}pip install pipx${NC} and re-run this script."
+        rm -f "$CLAUDE_DIR/.mcp.json"
+        exit 1
     fi
 fi
 
