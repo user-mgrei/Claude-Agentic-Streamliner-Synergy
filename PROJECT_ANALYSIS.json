@@ -1,0 +1,284 @@
+{
+  "project_metadata": {
+    "name": "Claude Agentic Streamliner Synergy",
+    "version": "3.0",
+    "created_date": "2026-01-06",
+    "analysis_date": "2026-01-06T11:52:00Z",
+    "total_files": 89,
+    "primary_languages": ["Python", "Bash", "Markdown", "JSON"],
+    "repository_type": "Claude Code Enhancement Suite",
+    "license": "Experimental",
+    "status": "Complete with Active Development"
+  },
+  "architecture_overview": {
+    "core_systems": [
+      {
+        "name": "Claude Hivemind V2",
+        "status": "stable",
+        "location": "important-legacy/",
+        "purpose": "SQLite-based persistent memory and multi-agent coordination",
+        "confidence": "85%",
+        "implementation_type": "production_ready"
+      },
+      {
+        "name": "Claude Hivemind V3", 
+        "status": "experimental",
+        "location": "v3-current/",
+        "purpose": "Enhanced implementation with known issues",
+        "confidence": "60%",
+        "implementation_type": "reference_only"
+      },
+      {
+        "name": "Research MCPs System",
+        "status": "complete",
+        "location": "research-mcps/",
+        "purpose": "Deep research and database tools via MCP servers",
+        "confidence": "95%",
+        "implementation_type": "production_ready"
+      }
+    ],
+    "development_branches": {
+      "total_branches": 8,
+      "v3_research_iterations": 4,
+      "qdrant_integration_iterations": 4,
+      "preserved_in": "branches/",
+      "purpose": "Historical development record and alternative implementations"
+    }
+  },
+  "component_analysis": {
+    "hivemind_v2": {
+      "files": [
+        "important-legacy/setup-claude-hivemind-v2.sh",
+        "important-legacy/Setup v2 fact check.md", 
+        "important-legacy/Setup v2 full analysis .md"
+      ],
+      "features": [
+        "SQLite WAL mode for concurrent access",
+        "SessionStart hook for memory injection",
+        "PreCompact hook for context preservation",
+        "Stop hook for learning export", 
+        "SubagentStop tracking",
+        "CRLF fix for Linux compatibility"
+      ],
+      "verified_against": "anthropics/claude-code repository",
+      "known_issues": [
+        "PreCompact hooks don't fire (Issue #13572)",
+        "SubagentStop can't identify specific agent (Issue #7881)",
+        "@ imports fail in global CLAUDE.md (Issue #1041)"
+      ],
+      "workarounds_implemented": true,
+      "installation_size": "~25KB",
+      "dependencies": ["python3", "sqlite3", "jq"]
+    },
+    "research_mcps": {
+      "servers": [
+        {
+          "name": "Web Research MCP",
+          "file": "research-mcps/servers/web_research_mcp.py",
+          "capabilities": [
+            "Intelligent web scraping",
+            "Content extraction (Trafilatura + Readability)",
+            "Session management",
+            "Rate limiting",
+            "Export to JSON/Markdown/CSV"
+          ],
+          "database": "web_research.db",
+          "tools_provided": 7
+        },
+        {
+          "name": "Document Research MCP", 
+          "file": "research-mcps/servers/document_research_mcp.py",
+          "capabilities": [
+            "PDF processing (PyMuPDF + PyPDF2)",
+            "Semantic search with embeddings",
+            "Document collections",
+            "Automatic chunking",
+            "URL downloads"
+          ],
+          "database": "document_research.db",
+          "tools_provided": 6,
+          "embedding_model": "all-MiniLM-L6-v2"
+        },
+        {
+          "name": "Knowledge Graph MCP",
+          "file": "research-mcps/servers/knowledge_graph_mcp.py", 
+          "capabilities": [
+            "Named Entity Recognition (spaCy)",
+            "Relationship extraction",
+            "Graph analysis (NetworkX)", 
+            "Vector similarity",
+            "Subgraph generation"
+          ],
+          "database": "knowledge_graph.db",
+          "tools_provided": 5,
+          "nlp_model": "en_core_web_sm"
+        },
+        {
+          "name": "Academic Research MCP",
+          "file": "research-mcps/servers/academic_research_mcp.py",
+          "capabilities": [
+            "arXiv API integration",
+            "Semantic Scholar integration",
+            "Citation analysis", 
+            "Research collections",
+            "Author/venue statistics"
+          ],
+          "database": "academic_research.db",
+          "tools_provided": 7,
+          "api_endpoints": ["arXiv", "Semantic Scholar"]
+        }
+      ],
+      "total_tools": 25,
+      "auto_integration": {
+        "hook_system": true,
+        "auto_knowledge_extraction": true,
+        "claude_code_settings": "automatic"
+      },
+      "installation": {
+        "script": "research-mcps/install_research_mcps.sh",
+        "dependencies": [
+          "fastmcp", "aiohttp", "requests", "beautifulsoup4",
+          "trafilatura", "readability-lxml", "PyPDF2", "PyMuPDF", 
+          "python-magic", "feedparser", "sentence-transformers",
+          "numpy", "networkx", "spacy"
+        ],
+        "models_required": ["all-MiniLM-L6-v2", "en_core_web_sm"],
+        "memory_usage": "500MB-1GB RAM"
+      }
+    }
+  },
+  "file_inventory": {
+    "documentation": {
+      "count": 45,
+      "primary_files": [
+        "README.md",
+        "docs/branch-analysis.md", 
+        "research-mcps/README.md"
+      ],
+      "analysis_reports": [
+        "important-legacy/Setup v2 fact check.md",
+        "important-legacy/Setup v2 full analysis .md", 
+        "v3-current/V3 Fact Check and Implementation Report.md"
+      ]
+    },
+    "implementation_scripts": {
+      "count": 22,
+      "installation_scripts": [
+        "important-legacy/setup-claude-hivemind-v2.sh",
+        "v3-current/setup-claude-hivemind-v3.sh",
+        "research-mcps/install_research_mcps.sh"
+      ]
+    },
+    "source_code": {
+      "python_files": 5,
+      "mcp_servers": 4,
+      "utility_scripts": 1,
+      "total_lines_estimate": "2000+"
+    },
+    "configuration": {
+      "json_files": 1,
+      "claude_settings": "research-mcps/configs/claude_settings.json"
+    },
+    "historical_branches": {
+      "total_preserved": 8,
+      "unique_implementations": 3,
+      "research_iterations": 12
+    }
+  },
+  "quality_assessment": {
+    "code_quality": {
+      "documentation_coverage": "95%",
+      "error_handling": "comprehensive", 
+      "testing_approach": "manual_verification",
+      "dependency_management": "explicit"
+    },
+    "verification_status": {
+      "v2_hivemind": "verified_against_official_docs",
+      "research_mcps": "implementation_complete",
+      "integration_testing": "manual_required"
+    },
+    "maintainability": {
+      "modularity": "high",
+      "separation_of_concerns": "excellent",
+      "configuration_flexibility": "high",
+      "upgrade_path": "clear"
+    }
+  },
+  "usage_workflows": {
+    "production_recommendation": {
+      "primary": "important-legacy/ (V2 Hivemind)",
+      "advanced": "research-mcps/ (Research Tools)",
+      "experimental": "v3-current/ (Reference only)"
+    },
+    "installation_order": [
+      "1. Install V2 Hivemind for stable memory persistence",
+      "2. Install Research MCPs for advanced capabilities", 
+      "3. Configure Claude Code integration",
+      "4. Test functionality with provided examples"
+    ],
+    "typical_use_cases": [
+      "Cross-session memory for Claude Code",
+      "Multi-agent coordination and orchestration",
+      "Deep research with web scraping",
+      "Academic paper analysis and citation tracking", 
+      "Knowledge graph construction from research",
+      "Document processing with semantic search"
+    ]
+  },
+  "technical_specifications": {
+    "supported_platforms": ["Linux", "macOS", "Windows (WSL)"],
+    "claude_code_compatibility": "2025-2026 versions",
+    "python_requirements": "3.8+",
+    "database_backend": "SQLite with WAL mode",
+    "memory_requirements": "2GB+ recommended",
+    "storage_requirements": "500MB+ for models and data"
+  },
+  "development_timeline": {
+    "phase_1": "V2 Hivemind - Stable implementation with verified hooks",
+    "phase_2": "V3 Research - Multiple experimental iterations",
+    "phase_3": "Qdrant Integration - Vector database exploration", 
+    "phase_4": "Research MCPs - Comprehensive research toolkit",
+    "phase_5": "Organization - Repository cleanup and documentation"
+  },
+  "known_limitations": {
+    "claude_code_issues": [
+      "PreCompact hooks unreliable (Issue #13572)",
+      "CRLF line ending problems on Linux (Issue #2805)",
+      "@ import failures in global CLAUDE.md (Issue #1041)",
+      "SubagentStop identification issues (Issue #7881)"
+    ],
+    "implementation_constraints": [
+      "Research MCPs require significant RAM for embedding models",
+      "Installation complexity increases with advanced features",
+      "Some academic APIs have rate limiting",
+      "spaCy model download required for NLP features"
+    ]
+  },
+  "future_development": {
+    "immediate_priorities": [
+      "Test Research MCP integration in production",
+      "Address known V3 implementation issues",
+      "Optimize memory usage for embedding models"
+    ],
+    "potential_enhancements": [
+      "Cloud storage integration for cross-device sync",
+      "Real-time collaboration features",
+      "Additional academic database integrations",
+      "Visual knowledge graph interface",
+      "Natural language query interface"
+    ]
+  },
+  "machine_readable_metadata": {
+    "schema_version": "1.0",
+    "parsable_sections": [
+      "project_metadata",
+      "architecture_overview", 
+      "component_analysis",
+      "file_inventory",
+      "technical_specifications"
+    ],
+    "api_compatibility": "MCP Protocol v1.0",
+    "automation_friendly": true,
+    "configuration_driven": true
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "mcpServers": {
+    "web_research": {
+      "command": "python3",
+      "args": ["research-mcps/servers/web_research_mcp.py"],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "document_research": {
+      "command": "python3", 
+      "args": ["research-mcps/servers/document_research_mcp.py"],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "knowledge_graph": {
+      "command": "python3",
+      "args": ["research-mcps/servers/knowledge_graph_mcp.py"], 
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "academic_research": {
+      "command": "python3",
+      "args": ["research-mcps/servers/academic_research_mcp.py"],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Read(*)",
+      "Write(*)", 
+      "Edit(*)",
+      "Bash(python3 research-mcps/*)",
+      "Bash(pip install*)",
+      "mcp__web_research__*",
+      "mcp__document_research__*", 
+      "mcp__knowledge_graph__*",
+      "mcp__academic_research__*"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__web_research__scrape_url",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "research-mcps/tools/auto_knowledge_extract.py",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
