@@ -1293,11 +1293,17 @@ TASK_PROMPT="$1"
 WORK_DIR="${2:-$(pwd)}"
 NO_HOOKS_CONFIG="$HOME/.claude/no-hooks.json"
 LOG_DIR="$HOME/.claude/agent-logs"
+# Maximum wall-clock runtime for the agent (in seconds). Override via AGENT_TIMEOUT env var.
+AGENT_TIMEOUT="${AGENT_TIMEOUT:-3600}"
 mkdir -p "$LOG_DIR"
 [ -z "$TASK_PROMPT" ] && { echo "Usage: spawn-agent.sh <task-prompt> [working-dir]"; exit 1; }
 SESSION_ID=$(date +%s%N)
 cd "$WORK_DIR"
-nohup claude --settings "$NO_HOOKS_CONFIG" -p "$TASK_PROMPT" --output-format stream-json --max-turns 10 > "$LOG_DIR/agent-${SESSION_ID}.log" 2>&1 &
+# Optional: limit CPU time (in seconds) for the agent process; ignore errors if unsupported.
+if [[ "$AGENT_TIMEOUT" =~ ^[0-9]+$ ]]; then
+    ulimit -t "$AGENT_TIMEOUT" 2>/dev/null || true
+fi
+nohup timeout "$AGENT_TIMEOUT" claude --settings "$NO_HOOKS_CONFIG" -p "$TASK_PROMPT" --output-format stream-json --max-turns 10 > "$LOG_DIR/agent-${SESSION_ID}.log" 2>&1 &
 echo "{\"session_id\": \"$SESSION_ID\", \"pid\": $!, \"log\": \"$LOG_DIR/agent-${SESSION_ID}.log\"}"
 SPAWN
 chmod +x "$SCRIPTS_DIR/spawn-agent.sh"
