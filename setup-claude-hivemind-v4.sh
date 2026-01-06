@@ -1359,7 +1359,6 @@ cat > "$CLAUDE_DIR/settings.json" << 'SETTINGS'
       "Grep(*)",
       "Glob(*)",
       "Bash(python3 ~/.claude/scripts/*)",
-      "Bash(~/.claude/scripts/*)",
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)",
